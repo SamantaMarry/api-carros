@@ -1,12 +1,14 @@
 package com.wswork.teste.samantamarry.apicarros.domain;
-import lombok.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Getter
-@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,20 +33,6 @@ public class Cars {
 
     private BigDecimal cost;
 
-
     private String color;
 
-    @Override
-    public String toString() {
-        return "Cars{" +
-                "id=" + id +
-                ", factories=" + factories +
-                ", modal='" + modal + '\'' +
-                ", year=" + year +
-                ", fuel='" + fuel + '\'' +
-                ", doors=" + doors +
-                ", cost=" + cost +
-                ", color='" + color + '\'' +
-                '}';
-    }
 }

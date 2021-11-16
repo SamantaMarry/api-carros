@@ -1,19 +1,20 @@
 package com.wswork.teste.samantamarry.apicarros.controller;
 
-import com.wswork.teste.samantamarry.apicarros.domain.Cars;
 import com.wswork.teste.samantamarry.apicarros.service.CarsService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-
-
+@Slf4j
 @RestController
 @RequestMapping("/cars")
 public class CarsController {
 
-    private CarsService carsService;
+    private final CarsService carsService;
 
     @Autowired
     public CarsController(CarsService carsService) {
@@ -21,18 +22,12 @@ public class CarsController {
     }
 
     @PostMapping
-    public void upload(@RequestParam("file") MultipartFile file){
-        carsService.uploadExcel(file);
-
+    public void upload(@RequestParam("file") MultipartFile file) {
+        try {
+            this.carsService.uploadAndSave(file);
+        } catch (Exception e) {
+            log.error("Erro ao converter e salvar carros do arquivo: {}", file);
+        }
     }
-
-    @GetMapping("/importar/")
-    public void criar(Cars cars) throws IOException {
-        this.carsService.criar(cars);
-
-    }
-
-
-
 
 }
